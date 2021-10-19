@@ -34,3 +34,27 @@ int createstock(void)
 	}
 	fclose(flot);
 }
+
+
+void affichagestock (int ref[], int qt[],float prix[],int sds[])
+{
+	int i;
+	FILE * flot;
+	flot=fopen("nom.txt","r");
+	if (flot == NULL)
+	{
+		printf("probleme d'ouverture du fichier \n");
+		return -1;
+	}
+	fscanf(flot,"%d%d%f%d",&ref,&qt,&prix,&sds);
+	while (!feof(flot))
+	{
+		fscanf(flot,"%d%d%f%d",&ref,&qt,&prix,&sds);
+	}
+	printf("reference de produit \t quantite \t prix unitaire \t seuil de securite ");
+	for (i=0 ; i<n ; i++)
+	print("%d \t %2f \t %c \n" , ref[i],qt [i], prix [i], sds [i]);
+	fclose(flot);
+	
+}
+
