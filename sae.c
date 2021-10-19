@@ -14,3 +14,23 @@ void fEtatStock(void)
 	}
 	
 }
+#include <stdio.h>
+#include <stdlib.h>
+#include "sae.h"
+int createstock(void)
+{
+	int n[],i,q[],s[];
+	float p[i];
+	FILE * flot;
+	flot=fopen("stock.txt","a");
+	if (flot == NULL)
+	{
+		printf("pb d'ouverure du fichier en lecture \n");
+		exit(1);
+	}
+	for (i=0;i++)
+	{
+		printf("saisissez les valeurs %d %d %f %d ",&n,&q,&p,&s);
+	}
+	fclose(flot);
+}
