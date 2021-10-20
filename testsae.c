@@ -11,9 +11,9 @@ void globale (void)
 	scanf("%c", &choix);
 
 	/*if (choix =='c')
-		fCreerStock();
+		fCreerStock();*/
 	if (choix =='o')
-		fConsulterStock();*/
+		fConsulterStock();
 	if (choix =='e')
 		fEtatStock();
 	/*if (choix =='d')
