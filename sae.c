@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "sae.h"
+
 void fEtatStock(void)
 {
 	int i,m;
@@ -13,26 +14,6 @@ void fEtatStock(void)
 			printf("%d produit(s) est(sont) au dessus du seuil de sécurité.\n", i);
 	}
 	
-}
-#include <stdio.h>
-#include <stdlib.h>
-#include "sae.h"
-int createstock(void)
-{
-	int n[],i,q[],s[];
-	float p[i];
-	FILE * flot;
-	flot=fopen("stock.txt","a");
-	if (flot == NULL)
-	{
-		printf("pb d'ouverure du fichier en lecture \n");
-		exit(1);
-	}
-	for (i=0;i++)
-	{
-		printf("saisissez les valeurs %d %d %f %d ",&n,&q,&p,&s);
-	}
-	fclose(flot);
 }
 
 
