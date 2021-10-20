@@ -17,7 +17,7 @@ void fEtatStock(void)
 }
 
 
-void affichagestock (int ref[], int qt[],float prix[],int sds[])
+void fConsulterStock (int ref[], int qt[],float prix[],int sds[])
 {
 	int i;
 	FILE * flot;
