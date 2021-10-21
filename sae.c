@@ -58,7 +58,7 @@ int NbArticle (void)
 	return n;
 }
 
-void fConsulterStock (int *ref[],int *qt[],float *prix[],int *sds[],int n)
+void fConsulterStock (int ref[],int qt[],float prix[],int sds[],int n)
 {
 	int i;
 	FILE * flot;
@@ -70,32 +70,31 @@ void fConsulterStock (int *ref[],int *qt[],float *prix[],int *sds[],int n)
 	}
 	while (!feof(flot))
 		for (i=0 ; i<n ; i++)
-			fscanf(flot,"%d%d%f%d",ref[i],qt[i],prix[i],sds[i]);
+			fscanf(flot,"%d%d%f%d",& ref[i],& qt[i],& prix[i],& sds[i]);
 	fclose(flot);
 }
 
-void fAfficherStock (int *ref[],int *qt[],float *prix[],int *sds[],int n)
+void fAfficherStock (int ref[],int qt[],float prix[],int sds[],int n)
 {
 	int i;
 	printf("Reference:\tQuantite:\tPrix:\tSeuil de securite:\n");
 	for (i=0 ; i<n ; i++)
-		printf("%d\t\t%d\t\t%.2f\t\t%d\n" ,*ref[i], *qt[i], *prix[i], *sds[i]);
+		printf("%d\t\t%d\t\t%.2f\t\t%d\n" ,ref[i], qt[i], prix[i], sds[i]);
 }
 
-/*void fEtatStock(void)
+void fEtatStock(int ref[],int qt[],float prix[],int sds[],int n)
 {
 	int i,m;
-	fConsulterStock(ref,qte,prix,seuil);
 	for(i=0;i<n;i++)
 	{
-		if(qte[i]<=seuil[i])
-			m=seuil[i]-ref[i];
+		if(qt[i]<sds[i])
+			m=sds[i]-ref[i];
 			printf("Le produit de référence n°%d doit être approvisionner de %d article(s)\n",ref[i],m);
-		if(qte[i]>seuil[i])
+		if(qt[i]>sds[i])
 			printf("%d produit(s) est(sont) au dessus du seuil de sécurité.\n", i);
 	}
 	
-}*/
+}
 
 
 
