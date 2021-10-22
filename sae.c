@@ -129,4 +129,12 @@ void fEtatStock(int ref[],int qt[],float prix[],int sds[],int n)
 {
 	
 }*/
+int frecherche (int ref[],int qt[],float prix[],int sds[],int n,int nref)
+{
+	int i ;
+	for (i=0;i<n;i++)
+		if (ref[i]==nref)
+			return i;
+	return -1;
+}
 
