@@ -5,7 +5,7 @@ void globale (void)
 {
 	int n;
 	n=NbArticle();
-	int ref[n],qt[n],sds[n],CodeErr,nref,code;
+	int ref[n],qt[n],sds[n],CodeErr,code,nref;
 	float prix[n];
 	char choix;
 	CodeErr=fConsulterStock(ref,qt,prix,sds,n);
@@ -24,24 +24,30 @@ void globale (void)
 	if (choix =='o')
 		fAfficherStock(ref,qt,prix,sds,n);
 	if (choix =='e')
-		{
-			fAfficherStock(ref,qt,prix,sds,n);
-			printf("\n");
-			fEtatStock(ref,qt,prix,sds,n);
-		}
+	{
+		fAfficherStock(ref,qt,prix,sds,n);
+		printf("\n");
+		fEtatStock(ref,qt,prix,sds,n);
+		printf("\n");
+	}
 	/*if (choix =='d')
 		fDevis();
 	if (choix =='r')
 		fVentes();*/
-	/*if (choix =='a')
-		fAppro();*/
+	if (choix =='a')
+	{
+		fAfficherStock(ref,qt,prix,sds,n);
+		fAppro(ref,qt,n);
+		printf("\n");
+		fAfficherStock(ref,qt,prix,sds,n);
+	}
 	/*if (choix =='s')
 		fSupp();*/
 	if (choix =='n')
 		{
 			printf("donner le N° de reference:");
 			scanf("%d",&nref);
-			code=frecherche(ref,qt,prix,sds,n,nref);
+			code=fRecherche(ref,n,nref);
 			if (code!=-1)
 				printf("%d\t\t%d\t\t%.2f\t\t%d\n" ,ref[code], qt[code], prix[code], sds[code]);
 			else 

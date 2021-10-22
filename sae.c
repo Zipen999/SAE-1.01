@@ -120,21 +120,30 @@ void fEtatStock(int ref[],int qt[],float prix[],int sds[],int n)
 		if(qt[i]<sds[i])
 			printf("Le produit de référence n°%d doit être approvisionner de %d article(s)\n",ref[i],m);
 		if(qt[i]>sds[i])
-			printf("%d produit(s) est(sont) au dessus du seuil de sécurité.\n", i+1);
+			i=i+1;
 	}
-	
+	printf("%d produit(s) est(sont) au dessus du seuil de sécurité.\n", i);
 }
 
-/*void fAppro (int ref[],int qt[],float prix[],int sds[],int n)
-{
-	
-}*/
-int frecherche (int ref[],int qt[],float prix[],int sds[],int n,int nref)
+int fRecherche (int ref[],int n,int nref)
 {
 	int i ;
 	for (i=0;i<n;i++)
 		if (ref[i]==nref)
 			return i;
 	return -1;
+}
+
+void fAppro (int ref[],int qt[],int n)
+{
+	int val, valref, m;
+	printf("Entrer la référence du produit que vous voulez approvisionner:");
+	scanf("%d",& valref);
+	val=fRecherche(ref,n,valref);
+		if(val==-1)
+			printf("Reference non éxistante.\n");
+	printf("Entrer la quantité approvisinné:");
+	scanf("%d",& m);
+	qt[val]=qt[val]+m;
 }
 
