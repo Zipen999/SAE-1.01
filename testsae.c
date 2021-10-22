@@ -5,7 +5,7 @@ void globale (void)
 {
 	int n;
 	n=NbArticle();
-	int ref[n],qt[n],sds[n],CodeErr;
+	int ref[n],qt[n],sds[n],CodeErr,nref,code;
 	float prix[n];
 	char choix;
 	CodeErr=fConsulterStock(ref,qt,prix,sds,n);
@@ -33,13 +33,21 @@ void globale (void)
 		fDevis();
 	if (choix =='r')
 		fVentes();*/
-	if (choix =='a')
-		fAppro();
+	/*if (choix =='a')
+		fAppro();*/
 	/*if (choix =='s')
-		fSupp();
+		fSupp();*/
 	if (choix =='n')
-		fRecherche();
-	if (choix =='m')
+		{
+			printf("donner le N° de reference:");
+			scanf("%d",&nref);
+			code=frecherche(ref,qt,prix,sds,n,nref);
+			if (code!=-1)
+				printf("%d\t\t%d\t\t%.2f\t\t%d\n" ,ref[code], qt[code], prix[code], sds[code]);
+			else 
+				printf("réference n'existe pas\n");
+		}
+	/*if (choix =='m')
 		fModifier();*/
 }
 
