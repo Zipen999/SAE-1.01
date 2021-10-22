@@ -87,14 +87,13 @@ void fEtatStock(int ref[],int qt[],float prix[],int sds[],int n)
 	int i,m;
 	for(i=0;i<n;i++)
 	{
+		m=sds[i]-qt[i];
 		if(qt[i]<sds[i])
-			m=sds[i]-ref[i];
 			printf("Le produit de référence n°%d doit être approvisionner de %d article(s)\n",ref[i],m);
 		if(qt[i]>sds[i])
-			printf("%d produit(s) est(sont) au dessus du seuil de sécurité.\n", i);
+			printf("%d produit(s) est(sont) au dessus du seuil de sécurité.\n", i+1);
 	}
 	
 }
-
 
 
