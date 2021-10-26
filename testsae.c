@@ -37,12 +37,18 @@ void globale (void)
 	if (choix =='a')
 	{
 		fAfficherStock(ref,qt,prix,sds,n);
-		fAppro(ref,qt,n);
+		fAppro(ref,qt,prix,sds,n);
 		printf("\n");
 		fAfficherStock(ref,qt,prix,sds,n);
 	}
-	/*if (choix =='s')
-		fSupp();*/
+	if (choix =='s')
+	{
+		fAfficherStock(ref,qt,prix,sds,n);
+		code=fSuppression(ref,qt,prix,sds,n);
+		if(code=-1)
+			printf("La réference n'existe pas\n");
+		fAfficherStock(ref,qt,prix,sds,n);
+	}
 	if (choix =='n')
 		{
 			printf("donner le N° de reference:");
@@ -51,7 +57,7 @@ void globale (void)
 			if (code!=-1)
 				printf("%d\t\t%d\t\t%.2f\t\t%d\n" ,ref[code], qt[code], prix[code], sds[code]);
 			else 
-				printf("réference n'existe pas\n");
+				printf("La réference n'existe pas\n");
 		}
 	/*if (choix =='m')
 		fModifier();*/

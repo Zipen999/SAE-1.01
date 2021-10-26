@@ -134,9 +134,9 @@ int fRecherche (int ref[],int n,int nref)
 	return -1;
 }
 
-void fAppro (int ref[],int qt[],int n)
+void fAppro (int ref[],int qt[],float prix[],int sds[],int n)
 {
-	int val, valref, m;
+	int val, valref, m,code;
 	printf("Entrer la référence du produit que vous voulez approvisionner:");
 	scanf("%d",& valref);
 	val=fRecherche(ref,n,valref);
@@ -145,15 +145,31 @@ void fAppro (int ref[],int qt[],int n)
 	printf("Entrer la quantité approvisinné:");
 	scanf("%d",& m);
 	qt[val]=qt[val]+m;
+	code=fEnreg(ref,qt,prix,sds,n);
+	if(code=-1)
+		printf("Probleme d'ouverture du fichier \n");
 }
 
-void fSuppression (int ref[],int qt[],float prix[],int sds[],int n)
+int fEnreg(int ref[],int qt[],float prix[],int sds[],int n)
 {
-	int i,j;
-	i=frecherche(ref,n,nref);
-	if (i==i)
+	int i;
+	FILE * flot;
+	flot=fopen("nom.txt","w");
+	if (flot == NULL)
 		return -1;
-	for(j=i;j<=*n-2;j++)
+	for (i=0; i<n; i++)
+		fprintf(flot,"%d\t%d\t%.2f\t%d\n",ref[i],qt[i],prix[i],sds[i]);
+
+	fclose(flot);
+}
+
+int fSuppression (int ref[],int qt[],float prix[],int sds[],int n)
+{
+	int code,i,j,nref;
+	code=fRecherche(ref,n,nref);
+	if (code==-1)
+		return -1;
+	for(j=code;j<n-1;j++)
 		{
 			ref[j]=ref[j+1];
 			qt[j]=qt[j+1];
@@ -171,3 +187,8 @@ void fSuppression (int ref[],int qt[],float prix[],int sds[],int n)
 			fprintf(nombre,"%d",n);
 	fclose(nombre);
 }
+
+/*void fModifier(int ref[],int qt[],float prix[],int sds[],int n)
+{
+	
+}*/
