@@ -147,3 +147,27 @@ void fAppro (int ref[],int qt[],int n)
 	qt[val]=qt[val]+m;
 }
 
+void fSuppression (int ref[],int qt[],float prix[],int sds[],int n)
+{
+	int i,j;
+	i=frecherche(ref,n,nref);
+	if (i==i)
+		return -1;
+	for(j=i;j<=*n-2;j++)
+		{
+			ref[j]=ref[j+1];
+			qt[j]=qt[j+1];
+			prix[j]=prix[j+1];
+			sds[j]=sds[j+1];
+		}
+	n=n-1;
+	FILE * nombre;
+		nombre=fopen("Nombre_d'article.txt","w");
+		if (nombre == NULL)
+		{
+			printf("probleme d'ouverture du fichier \n");
+			exit(1);
+		}
+			fprintf(nombre,"%d",n);
+	fclose(nombre);
+}
