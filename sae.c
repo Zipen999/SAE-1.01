@@ -79,16 +79,53 @@ void fVerifReal(float tab[],int i)
 	}
 }
 
-void fVerifVal(int val)
+void fVerifVal(int *val)
 {
-	while(val<0)
+	while(*val<=0)
 	{
 		printf("Valeur inférieur à 0!\n");
 		printf("Veuillez réessayer: ");
-		scanf("%d",& val);
-			if(val>=0)
+		scanf("%d",val);
+			if(*val>0)
 				break;
 	}
+}
+void fVerifRef(int ref[],int ref2[], int n, int pos)
+{
+    int j,val;
+    val=ref2[pos];
+    j=fRecherche2(ref,n,val);
+	while(j!=-1)
+	{
+		printf("Reference deja presente.\n");
+		printf("Veuillez réessayer: ");
+		scanf("%d",& ref2[pos]);
+        val=ref2[pos];
+        j=fRecherche2(ref,n,val);
+			if(j==-1)
+				break;
+	}
+}
+
+int fRecherche (int ref[],int n)
+{
+	int i,nref;
+	printf("Donner le N° de reference:");
+	scanf("%d",&nref);
+	fVerifVal(&nref);
+	for (i=0;i<n;i++)
+		if (ref[i]==nref)
+			return i;
+	return -1;
+}
+
+int fRecherche2 (int ref[],int n,int nref)
+{
+	int i;
+	for (i=0;i<n;i++)
+		if (ref[i]==nref)
+			return i;
+	return -1;
 }
 
 int NbArticle (void)
@@ -140,27 +177,6 @@ void fEtatStock(int ref[],int qt[],float prix[],int sds[],int n)
 	}
 }
 
-int fRecherche (int ref[],int n)
-{
-	int i,nref;
-	printf("Donner le N° de reference:");
-	scanf("%d",&nref);
-	fVerifVal(nref);
-	for (i=0;i<n;i++)
-		if (ref[i]==nref)
-			return i;
-	return -1;
-}
-
-int fRecherche2 (int ref[],int n,int nref)
-{
-	int i;
-	for (i=0;i<n;i++)
-		if (ref[i]==nref)
-			return i;
-	return -1;
-}
-
 int fAppro (int ref[],int qt[],float prix[],int sds[],int n)
 {
 	int val, m,code;
@@ -173,7 +189,7 @@ int fAppro (int ref[],int qt[],float prix[],int sds[],int n)
         }
 	printf("Entrer la quantité approvisinné:");
 	scanf("%d",& m);
-	fVerifVal(m);
+	fVerifVal(&m);
 	qt[val]=qt[val]+m;
 	code=fEnreg(ref,qt,prix,sds,n);
 	if(code==-1)
@@ -238,13 +254,50 @@ void fEnregNombre(int n)
 
 int fAjouter(int ref[],int qt[],float prix[],int sds[],int n)
 {
+    int i,nb,prods,code;
+    printf("Combien de produits voulez vous ajouter:");
+	scanf("%d",& prods);
+	fVerifVal(&prods);
+    n=NbArticle();
+	nb=n+prods;
+    int ref2[nb],qt2[nb],sds2[nb];
+    float prix2[nb];
+    for(i=0;i<n;i++)
+    {
+        ref2[i]=ref[i];
+        qt2[i]=qt[i];
+        prix2[i]=prix[i];
+        sds2[i]=sds[i];
+    }
+    for (i=n; i<nb; i++)
+    {
+     	printf("reference %d : ", i);
+     	scanf("%d", &ref2[i]);
+        fVerifRef(ref,ref2,n,i);
+		/*fVerif(ref2,i);*/
+     	printf("quantité %d : ", i);
+     	scanf("%d", &qt2[i]);
+		fVerif(qt2,i);
+		printf("Prix %d : ", i);
+     	scanf("%f", &prix2[i]);
+		fVerifReal(prix2,i);
+     	printf("seuil de sécurité %d : ", i);
+     	scanf("%d", &sds2[i]);
+		fVerif(sds2,i);
+	}
+    fEnregNombre(nb);
+	code=fEnreg(ref2,qt2,prix2,sds2,nb);
+	if(code==-1)
+		return -1;
+}
+/*{
 	int i,prods,nb,code,nref;
 	printf("Combien de produits voulez vous ajouter:");
 	scanf("%d",& prods);
 	fVerifVal(prods);
 	n=NbArticle();
 	nb=n+prods;
-	for(i=n+1;i<nb;i++)
+	for(i=n;i<nb;i++)
     {
      	printf("Reference: ");
      	scanf("%d", &ref[i]);
@@ -278,7 +331,7 @@ int fAjouter(int ref[],int qt[],float prix[],int sds[],int n)
 	code=fEnreg(ref,qt,prix,sds,nb);
 	if(code==-1)
 		return -1;
-}
+}*/
 
 int fModifier(int ref[],int qt[],float prix[],int sds[],int n)
 {
