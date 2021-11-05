@@ -29,16 +29,16 @@ void fCreerStock (void)
 	float prix[n];
  	for (i=0; i<n; i++)
     {
-     	printf("reference %d : ", i);
+     	printf("reference %d : ", i+1);
      	scanf("%d", &ref[i]);
 		fVerif(ref,i);
-     	printf("quantité %d : ", i);
+     	printf("quantité %d : ", i+1);
      	scanf("%d", &qt[i]);
 		fVerif(qt,i);
-		printf("Prix %d : ", i);
+		printf("Prix %d : ", i+1);
      	scanf("%f", &prix[i]);
 		fVerifReal(prix,i);
-     	printf("seuil de sécurité %d : ", i);
+     	printf("seuil de sécurité %d : ", i+1);
      	scanf("%d", &sds[i]);
 		fVerif(sds,i);
 
@@ -83,7 +83,7 @@ void fVerifVal(int *val)
 {
 	while(*val<=0)
 	{
-		printf("Valeur inférieur à 0!\n");
+		printf("Valeur inférieur ou egale à 0!\n");
 		printf("Veuillez réessayer: ");
 		scanf("%d",val);
 			if(*val>0)
@@ -111,7 +111,7 @@ int fRecherche (int ref[],int n)
 {
 	int i,nref;
 	printf("Donner le N° de reference:");
-	scanf("%d",&nref);
+	scanf("%d%*c",&nref);
 	fVerifVal(&nref);
 	for (i=0;i<n;i++)
 		if (ref[i]==nref)
@@ -172,7 +172,7 @@ void fEtatStock(int ref[],int qt[],float prix[],int sds[],int n)
 			printf("Le produit de référence n°%d doit être approvisionner de %d article(s)\n",ref[i],m);
 		if(qt[i]>sds[i])
 			printf("Etat produit ref n°%d OK\n",ref[i]);
-		if(qt[i]=sds[i])
+		if(qt[i]==sds[i])
 			printf("Produit ref n°%d est au seuil de securite.\n",ref[i]);
 	}
 }
@@ -271,17 +271,17 @@ int fAjouter(int ref[],int qt[],float prix[],int sds[],int n)
     }
     for (i=n; i<nb; i++)
     {
-     	printf("reference %d : ", i);
+     	printf("reference %d : ", i+1);
      	scanf("%d", &ref2[i]);
         fVerifRef(ref,ref2,n,i);
 		/*fVerif(ref2,i);*/
-     	printf("quantité %d : ", i);
+     	printf("quantité %d : ", i+1);
      	scanf("%d", &qt2[i]);
 		fVerif(qt2,i);
 		printf("Prix %d : ", i);
      	scanf("%f", &prix2[i]);
 		fVerifReal(prix2,i);
-     	printf("seuil de sécurité %d : ", i);
+     	printf("seuil de sécurité %d : ", i+1);
      	scanf("%d", &sds2[i]);
 		fVerif(sds2,i);
 	}
@@ -290,48 +290,6 @@ int fAjouter(int ref[],int qt[],float prix[],int sds[],int n)
 	if(code==-1)
 		return -1;
 }
-/*{
-	int i,prods,nb,code,nref;
-	printf("Combien de produits voulez vous ajouter:");
-	scanf("%d",& prods);
-	fVerifVal(prods);
-	n=NbArticle();
-	nb=n+prods;
-	for(i=n;i<nb;i++)
-    {
-     	printf("Reference: ");
-     	scanf("%d", &ref[i]);
-		ref[i]=nref;
-		code=fRecherche2(ref,n,nref);
-		printf("%d\n",code);
-		while(code!=-1)
-		{
-			printf("La reference existe deja.\n");
-			printf("Veuillez resaisir la reference: ");
-		 	scanf("%d", &ref[i]);
-			ref[i]=nref;
-			code=fRecherche2(ref,n,nref);
-            printf("%d",code);
-			if(code==-1)
-				break;
-		}
-		fVerif(ref,i);
-     	printf("Quantité: ");
-     	scanf("%d", &qt[i]);
-		fVerif(qt,i);
-		printf("Prix: ");
-     	scanf("%f", &prix[i]);
-		fVerifReal(prix,i);
-     	printf("Seuil de sécurité: ");
-     	scanf("%d", &sds[i]);
-		fVerif(sds,i);
-
-	}
-	fEnregNombre(nb);
-	code=fEnreg(ref,qt,prix,sds,nb);
-	if(code==-1)
-		return -1;
-}*/
 
 int fModifier(int ref[],int qt[],float prix[],int sds[],int n)
 {
@@ -359,4 +317,173 @@ int fModifier(int ref[],int qt[],float prix[],int sds[],int n)
 	code=fEnreg(ref,qt,prix,sds,n);
 	if(code==-1)
 		return -1;
+}
+
+int fDevis (int ref[],int qt[],float prix[],int sds[],int n,int qtvendu[])
+{
+    int i,pos,qtav,code,nclient,nprod,refc;
+	char choix;
+    printf("Numero du client:");
+	scanf("%d",& nclient);
+	fVerifVal(&nclient);
+    printf("Combien d'article le client voudrais acheter: ");
+    scanf("%d",& nprod);
+	while(nprod>n || nprod <= 0)
+	{
+		printf("Pas assez d'article dans votre stock ou valeur inférieur a 1.");
+		printf("Reessayer:");
+		scanf("%d",& nprod);
+		if(nprod<=n && nprod >0)
+			break;
+	}
+	int client[nprod],refclient[nprod],qtclient[nprod];
+	float prixclient[nprod];
+	for (i=0 ; i<nprod ; i++)
+	{
+		client[i]=nclient;
+		printf("Reference du produit %d:",i+1);
+		scanf("%d",& refc);
+		fVerifVal(&refc);
+		pos=fRecherche2(ref,n,refc);
+		while(pos==-1)
+		{
+			printf("Reference non éxistante.\n");
+			printf("Reference du produit %d:",i+1);
+			scanf("%d",& refc);
+			fVerifVal(&refc);
+			pos=fRecherche2(ref,n,refc);
+			if(pos!=-1)
+				break;
+		}
+		refclient[i]=refc;
+		if(qt[pos]>sds[pos])
+		{
+			printf("Quantite a vendre du produit ref %d: ",refclient[i]);
+			scanf("%d%*c",& qtav);
+			fVerifVal(&qtav);
+			if(qt[pos]>=qtav)
+			{
+				prixclient[i]=prix[pos]*qtav;
+				qt[pos]=qt[pos]-qtav;
+				qtclient[i]=qtav;
+				//fGererRecap(ref,n,qtvendu,qtav,pos);
+				fEnregDevis(client,refclient,qtclient,prixclient,nprod);
+				code=fEnreg(ref,qt,prix,sds,n);
+				if(code==-1)
+					return -1;
+			}
+			else
+			{
+				printf("La quantite selectionne depasse la quantite disponible dans votre stock.\n");
+				exit(1);
+			}
+		}
+		if(qt[pos]<=sds[pos])
+		{
+			printf("Rupture de stock sur le produit choisi.\n");
+			exit(1);
+		}
+	}
+	fConsulterDevis(client,refclient,qtclient,prixclient,nprod,nclient);
+}
+
+void fEnregDevis(int client[],int refprod[],int qtprod[],float prixclient[],int nprod)
+{
+	int i;
+	FILE * devis;
+	devis=fopen("devis.txt","a");
+	if(devis==NULL)
+	{
+		printf("probleme d'ouverture du fichier devis.\n");
+		exit(1);
+	}
+	for(i=0;i<nprod;i++)
+		fprintf(devis,"%d\t%d\t%d\t%.2f\n",client[i],refprod[i],qtprod[i],prixclient[i]);
+	fclose(devis);
+}
+void fConsulterDevis (int client[],int refprod[],int qtprod[],float prixclient[],int nprod,int nclient)
+{
+	int i;
+	FILE * devis;
+	devis=fopen("devis.txt","r");
+	if(devis==NULL)
+	{
+		printf("probleme d'ouverture du fichier devis.\n");
+		exit(1);
+	}
+	while(!feof(devis))
+		for(i=0;i<nprod;i++)
+			fscanf(devis,"%d%d%d%f",& client[i],& refprod[i],& qtprod[i],& prixclient[i]);
+	fclose(devis);
+	fAffichageDevis(client,refprod,qtprod,prixclient,nprod,nclient);
+}
+
+void fAffichageDevis(int client[],int refprod[],int qtprod[],float prixclient[],int nprod,int nclient)
+{
+	int i;
+	float prixT=0;
+	printf("Voici le devi du client %d:\n",nclient);
+	printf("\tReference Article:\tQuantité:\tPrix:\n");
+	for(i=0;i<nprod;i++)
+		if(client[i]==nclient)
+		{	
+			printf("\t\t%d\t\t%d\t\t%.2f\n",refprod[i],qtprod[i],prixclient[i]);
+			prixT=prixT+prixclient[i];
+		}
+	printf("\t\t\t\t\tPrix totale: %.2f\n",prixT);	
+}
+
+
+void fEnregRecap (int ref[],int n,int qtvendu[],int prixclient[])
+{
+	int i;
+	FILE * flot;
+	flot=fopen("recap.txt","w");
+	if(flot==NULL)
+	{
+		printf("probleme d'ouverture du fichier recap.\n");
+		exit(1);
+	}
+	for(i=0;i<n;i++)
+		fprintf(flot,"%d\t%d\n",ref[i],qtvendu[i],prixclient[i]);
+	fclose(flot);
+}
+
+void fGererRecap (int ref[],int n,int qtvendu[],int qtav,int pos)
+{
+	int i,code;
+	code=fConsulterRecap(ref,qtvendu,n);
+	if(code!=-1)
+	{	
+		qtvendu[pos]=qtvendu[pos]+qtav;
+		fEnregRecap(ref,n,qtvendu);
+	}
+	else
+	{
+		qtvendu[pos]=qtav;
+		fEnregRecap(ref,n,qtvendu);
+	}
+	
+}
+
+int fConsulterRecap (int ref[],int qtvendu[],int n)
+{
+	int i;
+	FILE * flot;
+	flot=fopen("recap.txt","r");
+	if (flot == NULL)
+		return -1;
+	while(!feof(flot))
+		for (i=0 ; i<n ; i++)
+			fscanf(flot,"%d%d",& ref[i],& qtvendu[i]);
+	fclose(flot);
+}
+
+void fAffichageRecap (int ref[],int qtvendu[],int n)
+{
+	int i;
+	printf("\nReference:\tQuantite Vendu:\n");
+	for (i=0 ; i<n ; i++)
+		if(qtvendu[i]>0)
+			printf("%d\t\t%d\n" ,ref[i], qtvendu[i]);
 }

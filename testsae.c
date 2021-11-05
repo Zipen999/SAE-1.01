@@ -3,9 +3,12 @@
 
 void globale (void)
 {
-	int n;
+	int n,i;
 	n=NbArticle();
 	int ref[n],qt[n],sds[n],CodeErr,code,CodeSup;
+    int qtvendu[n];
+    for (i=0 ; i<n ; i++)
+        qtvendu[i]=0;
 	float prix[n];
 	char choix;
 	CodeErr=fConsulterStock(ref,qt,prix,sds,n);
@@ -24,11 +27,13 @@ void globale (void)
 		fAfficherStock(ref,qt,prix,sds,n);
 	if (choix =='e')
 		fEtatStock(ref,qt,prix,sds,n);
-	/*if (choix =='d')
-		fDevis();
-	if (choix =='r')
-		fVentes();*/
-	if (choix =='a')
+	if (choix =='d')
+		fDevis(ref,qt,prix,sds,n,qtvendu);
+	/*if (choix =='r')
+    {
+		fGererRecap(ref,n,qtvendu,qtav);
+	}*/
+    if (choix =='a')
 	{
 		fAfficherStock(ref,qt,prix,sds,n);
 		code=fAppro(ref,qt,prix,sds,n);

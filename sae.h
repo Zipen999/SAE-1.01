@@ -16,3 +16,13 @@ int fEnreg(int ref[],int qt[],float prix[],int sds[],int n);
 int fSuppression (int ref[],int qt[],float prix[],int sds[],int n);
 int fAjouter(int ref[],int qt[],float prix[],int sds[],int n);
 int fModifier(int ref[],int qt[],float prix[],int sds[],int n);
+
+int fDevis (int ref[],int qt[],float prix[],int sds[],int n,int qtvendu[]);
+void fEnregDevis(int client[],int refprod[],int qtprod[],float prixclient[],int nprod);
+void fConsulterDevis (int client[],int refprod[],int qtprod[],float prixclient[],int nprod,int nclient);
+void fAffichageDevis(int client[],int refprod[],int qtprod[],float prixclient[],int nprod,int nclient);
+
+void fEnregRecap (int ref[],int n,int qtvendu[]);
+void fGererRecap (int ref[],int n,int qtvendu[],int qtav,int pos);
+int fConsulterRecap (int ref[],int qtvendu[],int n);
+void fAffichageRecap (int ref[],int qtvendu[],int n);
