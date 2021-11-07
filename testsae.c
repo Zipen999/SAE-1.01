@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "sae.h"
 
 void globale (void)
@@ -17,22 +18,42 @@ void globale (void)
 	if (CodeErr== -1 || n == -1)
 		printf("!! Vous n'avez pas encore créer de stock veuillez créer un stock avant de faire n'importe quel manipulation !! \n\n");
 
-	printf("Créer un stock: 'c'| Afficher le stock: 'o'| Etat du stock: 'e'| Faire le devis d'une commade: 'd'| Récapitulatif des ventes: 'r'| Approvisionnement: 'a'| \nSupprimer un article:'s'| Rechercher un article avec n° ref: 'n'| Modifier l'article :'m'| Ajouter un article: 't'\n\n");
+	printf("Creer un stock: 'c'| Afficher le stock: 'o'| Etat du stock: 'e'| Faire le devis d'une commade: 'd'| Recapitulatif des ventes: 'r'| Approvisionnement: 'a'| \nSupprimer un article:'s'| Rechercher un article avec n° ref: 'n'| Modifier l'article :'m'| Ajouter un article: 't'\n\n");
 
 	printf("Que voulez vous faire(votre choix): ");
 	scanf("%c%*c", &choix);
+
 	if (choix =='c')
-		fCreerStock();
+		CodeErr=fCreerStock();
+        if(CodeErr!=1)
+            printf("Stock creer avec succees.\n");
+        else
+            printf("Echec de la creation du stock.\n");
+
 	if (choix =='o')
 		fAfficherStock(ref,qt,prix,sds,n);
+
 	if (choix =='e')
 		fEtatStock(ref,qt,prix,sds,n);
+
 	if (choix =='d')
-		fDevis(ref,qt,prix,sds,n,qtvendu);
-	/*if (choix =='r')
+		CodeErr=fDevis(ref,qt,prix,sds,n,qtvendu);
+        if(CodeErr!=1)
+            printf("Devis creer avec succees.\n");
+        else
+            printf("Echec de la creation du Devis.\n");
+
+	if (choix =='r')
     {
-		fGererRecap(ref,n,qtvendu,qtav);
-	}*/
+		CodeErr=fConsulterRecap(ref,qtvendu,n);
+        if(CodeErr==-1)
+        {
+            printf("Echec de l'ouverture du fichier recapitulatif des ventes.\n");
+            exit(1);
+        }
+        fAffichageRecap(ref,qtvendu,n);
+	}
+
     if (choix =='a')
 	{
 		fAfficherStock(ref,qt,prix,sds,n);
@@ -44,6 +65,7 @@ void globale (void)
 		printf("\n");
 		fAfficherStock(ref,qt,prix,sds,n);
 	}
+
 	if (choix =='s')
 	{
         CodeSup=fSuppression(ref,qt,prix,sds,n);
@@ -52,6 +74,7 @@ void globale (void)
         else
 			printf("Erreur, la suppression ne peut pas s'effectuer.\n");
 	}
+
 	if (choix =='n')
 		{
 			code=fRecherche(ref,n);
@@ -66,12 +89,13 @@ void globale (void)
 
 	if (choix =='t')
     {
-		code==fAjouter(ref,qt,prix,sds,n);
+		code=fAjouter(ref,qt,prix,sds,n);
 		if(code==-1)
 			printf("Erreur, l'ajout ne peut pas s'effectuer.\n");
         else
             printf("Ajout éffectué. \n");
     }
+
 	if (choix =='m')
     {
 		code=fModifier(ref,qt,prix,sds,n);

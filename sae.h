@@ -5,7 +5,7 @@ void fVerif(int tab[],int i);
 void fVerifReal(float tab[],int i);
 void fVerifVal(int *val);
 void fVerifRef(int ref[],int ref2[], int n, int pos);
-void fCreerStock (void);
+int fCreerStock (void);
 void fEtatStock(int ref[],int qt[],float prix[],int sds[],int n);
 int fConsulterStock (int ref[],int qt[],float prix[],int sds[],int n);
 void fAfficherStock (int ref[],int qt[],float prix[],int sds[],int n);
@@ -19,7 +19,7 @@ int fModifier(int ref[],int qt[],float prix[],int sds[],int n);
 
 int fDevis (int ref[],int qt[],float prix[],int sds[],int n,int qtvendu[]);
 void fEnregDevis(int client[],int refprod[],int qtprod[],float prixclient[],int nprod);
-void fConsulterDevis (int client[],int refprod[],int qtprod[],float prixclient[],int nprod,int nclient);
+int fConsulterDevis (int client[],int refprod[],int qtprod[],float prixclient[],int nprod,int nclient);
 void fAffichageDevis(int client[],int refprod[],int qtprod[],float prixclient[],int nprod,int nclient);
 
 void fEnregRecap (int ref[],int n,int qtvendu[]);

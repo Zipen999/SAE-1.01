@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "sae.h"
 
-void fCreerStock (void)
+int fCreerStock (void)
 {
 	int i,n;
 	printf("Combien d'articles : ");
@@ -20,7 +20,7 @@ void fCreerStock (void)
 		if (nombre == NULL)
 		{
 			printf("probleme d'ouverture du fichier \n");
-			exit(1);
+		    return-1;
 		}
 			fprintf(nombre,"%d",n);
 
@@ -48,7 +48,7 @@ void fCreerStock (void)
 	if (flot == NULL)
 	{
 		printf("Probleme d'ouverture du fichier \n");
-		exit(1);
+		return-1;
 	}
 	for (i=0; i<n; i++)
 		fprintf(flot,"%d\t%d\t%.2f\t%d\n",ref[i],qt[i],prix[i],sds[i]);
@@ -274,7 +274,6 @@ int fAjouter(int ref[],int qt[],float prix[],int sds[],int n)
      	printf("reference %d : ", i+1);
      	scanf("%d", &ref2[i]);
         fVerifRef(ref,ref2,n,i);
-		/*fVerif(ref2,i);*/
      	printf("quantité %d : ", i+1);
      	scanf("%d", &qt2[i]);
 		fVerif(qt2,i);
@@ -366,11 +365,7 @@ int fDevis (int ref[],int qt[],float prix[],int sds[],int n,int qtvendu[])
 				prixclient[i]=prix[pos]*qtav;
 				qt[pos]=qt[pos]-qtav;
 				qtclient[i]=qtav;
-				//fGererRecap(ref,n,qtvendu,qtav,pos);
-				fEnregDevis(client,refclient,qtclient,prixclient,nprod);
-				code=fEnreg(ref,qt,prix,sds,n);
-				if(code==-1)
-					return -1;
+                fGererRecap(ref,n,qtvendu,qtav,pos);
 			}
 			else
 			{
@@ -384,7 +379,13 @@ int fDevis (int ref[],int qt[],float prix[],int sds[],int n,int qtvendu[])
 			exit(1);
 		}
 	}
-	fConsulterDevis(client,refclient,qtclient,prixclient,nprod,nclient);
+    fEnregDevis(client,refclient,qtclient,prixclient,nprod);
+    code=fEnreg(ref,qt,prix,sds,n);
+    if(code==-1)
+        return -1;
+	code=fConsulterDevis(client,refclient,qtclient,prixclient,nprod,nclient);
+    if(code==-1)
+        return -1;
 }
 
 void fEnregDevis(int client[],int refprod[],int qtprod[],float prixclient[],int nprod)
@@ -401,16 +402,13 @@ void fEnregDevis(int client[],int refprod[],int qtprod[],float prixclient[],int 
 		fprintf(devis,"%d\t%d\t%d\t%.2f\n",client[i],refprod[i],qtprod[i],prixclient[i]);
 	fclose(devis);
 }
-void fConsulterDevis (int client[],int refprod[],int qtprod[],float prixclient[],int nprod,int nclient)
+int fConsulterDevis (int client[],int refprod[],int qtprod[],float prixclient[],int nprod,int nclient)
 {
 	int i;
 	FILE * devis;
 	devis=fopen("devis.txt","r");
 	if(devis==NULL)
-	{
-		printf("probleme d'ouverture du fichier devis.\n");
-		exit(1);
-	}
+        return -1;
 	while(!feof(devis))
 		for(i=0;i<nprod;i++)
 			fscanf(devis,"%d%d%d%f",& client[i],& refprod[i],& qtprod[i],& prixclient[i]);
@@ -434,18 +432,18 @@ void fAffichageDevis(int client[],int refprod[],int qtprod[],float prixclient[],
 }
 
 
-void fEnregRecap (int ref[],int n,int qtvendu[],int prixclient[])
+void fEnregRecap (int ref[],int n,int qtvendu[])
 {
 	int i;
 	FILE * flot;
 	flot=fopen("recap.txt","w");
 	if(flot==NULL)
 	{
-		printf("probleme d'ouverture du fichier recap.\n");
-		exit(1);
+		    printf("Probleme d'enregistrement du fichier recapitulatif des ventes.\n");
+		    exit(1);
 	}
 	for(i=0;i<n;i++)
-		fprintf(flot,"%d\t%d\n",ref[i],qtvendu[i],prixclient[i]);
+		fprintf(flot,"%d\t%d\n",ref[i],qtvendu[i]);
 	fclose(flot);
 }
 
