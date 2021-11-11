@@ -44,4 +44,15 @@ Si ```fNbArticle``` ou ```fConsulterStock``` retourne la valeur -1 cela veut dir
 - Le numéro du client doit être > 0.
 - La référence de l'article doit être présente dans le tableau ref sinon on resaisi la reference (*appelle a la fonction ```fRecherche2``` qui cette fois ci ne demande pas d'entrer la reference de l'article mais effectue que la vérification de présence de la reference*).
 - L'article selectionné doit avoir une quantité supérieur a son seuil de sécurité
-- La quantité voulu par le client ne doit pas dépasser la quantité présente dans le stock sinon on resaisi la valeur.  Si toute ces conditions sont validé on va multiplié le prix a l'unité de notre article par la quantité voulu par le client et le stocker dans un tableau, on va soustraire la quantité présente dans le stock par la quantité vendu, on va mettre la quantité vendu dans un tableau pour reconnaitre la quantité acheter de chaque client et on fait appelle a ```fGererRecap``` qui va lire le fichier __recap.txt__ grâce à ```fConsulterRecap```, si le fichier n'est pas présent on initialisera un tableau qui fait office de la quantité vendu à 0 et on incrémente la quantité vendu dans un tableau qui aura la même position que ça référence et si le fichier éxiste déja on prend la valeur présente et on rajoute la quantité vendu. On enregistre dans le fichier __recap.txt__ avec ```fEnregRecap```.
+- La quantité voulu par le client ne doit pas dépasser la quantité présente dans le stock sinon on resaisi la valeur. 
+
+Si toute ces conditions sont validé on va multiplié le prix a l'unité de notre article par la quantité voulu par le client et le stocker dans un tableau, on va soustraire la quantité présente dans le stock par la quantité vendu, on va mettre la quantité vendu dans un tableau pour reconnaitre la quantité acheter de chaque client et on fait appelle a ```fGererRecap``` qui va lire le fichier __recap.txt__ grâce à ```fConsulterRecap```, si le fichier n'est pas présent on initialisera un tableau qui fait office de la quantité vendu à 0 et on incrémente la quantité vendu dans un tableau qui aura la même position que ça référence et si le fichier éxiste déja on prend la valeur présente et on rajoute la quantité vendu. On enregistre dans le fichier __recap.txt__ avec ```fEnregRecap```.
+
+```fAffichageRecap``` Affiche le récapitualtif des ventes. Si le nombre de produit vendu est > 0 on afficher la référence du produit et la quantité vendu.
+
+```CodeSuppression``` Est une fonction appelé lors de la création d'un stock qui enregiste le code secret dans le fichier __x__.
+
+```Clean``` Est la fonction qui va permettre à l'utilisateur qui gere le stock de supprimer toutes les données concernant son stock(les devis créé, le fichier conteant le stock de l'entreprise,le fichier recapitulatif de ventes et le fichier contenant le code). La fonction regarde si le code entrer est le meme que celui présent dans le fichier __x__ et demande a l'utilisateur s'il veut vraiment tout supprimer.
+
+#### Remarque:
+- La fonction fDevis ne fonctionne pas correctement sur les pc de l'iut il ce peut que ce soit un problème de droits (*Lors de la saisi de la référence d'article a vendre, le programme ne donne pas la main à l'utilisateur pour saisir la quantité à vendre et met 0*).
