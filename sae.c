@@ -214,30 +214,21 @@ int fSuppression (int ref[],int qt[],float prix[],int sds[],int n)
 	int code,codeErr,i,nref;
 	code=fRecherche(ref,n);
 	if (code!=-1)
-    {
-        for(i=code;i<n-1;i++)
-	    {
-	        ref[i]=ref[i+1];
-	        qt[i]=qt[i+1];
-	        prix[i]=prix[i+1];
-	        sds[i]=sds[i+1];
-	    }
-        n--;
-        FILE * nombre;
-	        nombre=fopen("Nombre.txt","w");
-	        if (nombre == NULL)
-	        {
-		        printf("probleme d'ouverture du fichier \n");
-		        exit(1);
-	        }
-		        fprintf(nombre,"%d",n);
-        fclose(nombre);
+    	{
+		for(i=code;i<n-1;i++)
+		{
+			ref[i]=ref[i+1];
+			qt[i]=qt[i+1];
+			prix[i]=prix[i+1];
+			sds[i]=sds[i+1];
+		}
+		n--;
 		fEnregNombre(n);
 		codeErr=fEnreg(ref,qt,prix,sds,n);
 		if(codeErr==-1)
 			return -1;
-    }
-    else
+	}
+	else
 		return -1;
 }
 void fEnregNombre(int n)
@@ -500,7 +491,7 @@ void CodeSuppression(void)
 		printf("Probleme d'ouverture du fichier qui gere le code de votre entreprise.");
 		exit(1);
 	}
-	printf("Entrer un code secret compose de chiffre qui permettra de supprimer toutes les donnees sur l'entreprise: ");
+	printf("Entrer un code secret compose de chiffre qui permettra de supprimer toutes les donnees de l'entreprise: ");
 	scanf("%d",& sec);
 	fprintf(code,"%d",sec);
 	fclose(code);
@@ -509,6 +500,7 @@ void CodeSuppression(void)
 void Clean(void)
 {
 	int code,codeinpt;
+	char choix;
 	FILE * coder;
 	coder=fopen("x","r");
 	if(coder==NULL)
@@ -519,15 +511,20 @@ void Clean(void)
 	fscanf(coder,"%d",& code);
 	fclose(coder);
 	printf("Entrer votre code secret: ");
-	scanf("%d",& codeinpt);
+	scanf("%d%*c",& codeinpt);
 	if(codeinpt==code)
 	{
-		system("rm devis.txt");
-		system("rm nom.txt");
-		system("rm Nombre.txt");
-		system("rm recap.txt");
-		system("rm x");
-		printf("\nToutes vos donnees sont supprimer. Vous pouvez maintenant creer un nouveau stock.\n");
+	printf("Voulez vous vraiment supprimer toutes les données sur l'entreprise ? ce choix est irrévertible (o/n): ");
+	scanf("%c",& choix);
+		if(choix=='o')
+		{
+			system("rm devis.txt");
+			system("rm nom.txt");
+			system("rm Nombre.txt");
+			system("rm recap.txt");
+			system("rm x");
+			printf("\nToutes vos donnees sont supprimer. Vous pouvez maintenant creer un nouveau stock.\n");
+		}
 	}
 	else
 	{

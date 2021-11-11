@@ -28,7 +28,7 @@ void globale (void)
 	printf("#########################################################################\n");
 	printf("#\tCreer un stock: 'c'\t\t\t\t\t\t#\n#\tAfficher le stock: 'o'\t\t\t\t\t\t#\n#\tEtat du stock: 'e'\t\t\t\t\t\t#\n#\tFaire le devis d'une commade: 'd'\t\t\t\t#\n#\tRecapitulatif des ventes: 'r'\t\t\t\t\t#\n#\tApprovisionnement: 'a'\t\t\t\t\t\t#\n#\tSupprimer un article:'s'\t\t\t\t\t#\n#\tRechercher un article avec n° ref: 'n'\t\t\t\t#\n#\tModifier l'article :'m'\t\t\t\t\t\t#\n#\tAjouter un article: 't'\t\t\t\t\t\t#\n");
 	printf("#########################################################################\n");
-	printf("#\tSUPPRIMER TOUTES LES DONNEES DE L'ENTREPRISE : 'X'\t\t#\n");
+	printf("#\tSUPPRIMER TOUTES LES DONNEES DE L'ENTREPRISE : 'x'\t\t#\n");
 	printf("#########################################################################\n\n");
 	printf("Que voulez vous faire: ");
 	scanf("%c%*c", &choix);
