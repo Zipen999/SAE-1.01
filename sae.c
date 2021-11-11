@@ -277,7 +277,7 @@ int fAjouter(int ref[],int qt[],float prix[],int sds[],int n)
      	printf("quantité %d : ", i+1);
      	scanf("%d", &qt2[i]);
 		fVerif(qt2,i);
-		printf("Prix %d : ", i);
+		printf("Prix %d : ", i+1);
      	scanf("%f", &prix2[i]);
 		fVerifReal(prix2,i);
      	printf("seuil de sécurité %d : ", i+1);
@@ -301,16 +301,16 @@ int fModifier(int ref[],int qt[],float prix[],int sds[],int n)
 		printf("Reference non éxistante.\n");
 		return -1;
 	} 	
-	printf("reference %d : ", code);
+	printf("reference: ");
  	scanf("%d", &ref[code]);
 	fVerif(ref,code);
- 	printf("quantité %d : ", code);
+ 	printf("quantité: ");
  	scanf("%d", &qt[code]);
 	fVerif(qt,code);
-	printf("Prix %d : ", code);
+	printf("Prix: ");
  	scanf("%f", &prix[code]);
 	fVerifReal(prix,code);
- 	printf("seuil de sécurité %d : ", code);
+ 	printf("seuil de sécurité: ");
  	scanf("%d", &sds[code]);
 	fVerif(sds,code);
 	code=fEnreg(ref,qt,prix,sds,n);
@@ -340,14 +340,14 @@ int fDevis (int ref[],int qt[],float prix[],int sds[],int n,int qtvendu[])
 	for (i=0 ; i<nprod ; i++)
 	{
 		client[i]=nclient;
-		printf("Reference du produit %d:",i+1);
+		printf("Reference du produit %d: ",i+1);
 		scanf("%d",& refc);
 		fVerifVal(&refc);
 		pos=fRecherche2(ref,n,refc);
 		while(pos==-1)
 		{
 			printf("Reference non éxistante.\n");
-			printf("Reference du produit %d:",i+1);
+			printf("Reference du produit %d: ",i+1);
 			scanf("%d",& refc);
 			fVerifVal(&refc);
 			pos=fRecherche2(ref,n,refc);
@@ -360,32 +360,35 @@ int fDevis (int ref[],int qt[],float prix[],int sds[],int n,int qtvendu[])
 			printf("Quantite a vendre du produit ref %d: ",refclient[i]);
 			scanf("%d%*c",& qtav);
 			fVerifVal(&qtav);
+			while(qt[pos]<qtav)
+			{
+				printf("La quantite selectionne depasse la quantite disponible dans votre stock.\n");
+				printf("Reessayer:");
+				scanf("%d%*c",& qtav);
+				if(qt[pos]>=qtav)
+					break;										//A revoir
+			}
 			if(qt[pos]>=qtav)
 			{
 				prixclient[i]=prix[pos]*qtav;
 				qt[pos]=qt[pos]-qtav;
 				qtclient[i]=qtav;
-                fGererRecap(ref,n,qtvendu,qtav,pos);
-			}
-			else
-			{
-				printf("La quantite selectionne depasse la quantite disponible dans votre stock.\n");
-				exit(1);
+				fGererRecap(ref,n,qtvendu,qtav,pos);
 			}
 		}
-		if(qt[pos]<=sds[pos])
+		/*if(qt[pos]<=sds[pos])
 		{
 			printf("Rupture de stock sur le produit choisi.\n");
 			exit(1);
-		}
+		}*/
 	}
-    fEnregDevis(client,refclient,qtclient,prixclient,nprod);
-    code=fEnreg(ref,qt,prix,sds,n);
-    if(code==-1)
-        return -1;
+    	fEnregDevis(client,refclient,qtclient,prixclient,nprod);
+   	code=fEnreg(ref,qt,prix,sds,n);
+   	if(code==-1)
+    		return -1;
 	code=fConsulterDevis(client,refclient,qtclient,prixclient,nprod,nclient);
-    if(code==-1)
-        return -1;
+   	if(code==-1)
+      		return -1;
 }
 
 void fEnregDevis(int client[],int refprod[],int qtprod[],float prixclient[],int nprod)
