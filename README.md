@@ -13,9 +13,9 @@ Chaque type de chaussure possède:
 - Un seuil de sécurité.
 
 ## Fonctionnalités réalisé:
-``` globale ``` : La fonction globale va gerer toutes les autres fonction, c'est la fonction qui va créer la plupart des variables/tableaux, afficher le menu du programme, afficher les messages d'erreurs et bien sur demander à l'utilisateur ce qu'il veut faire dès l'execution.
+``` globale ```: La fonction globale va gerer toutes les autres fonction, c'est la fonction qui va créer la plupart des variables/tableaux, afficher le menu du programme, afficher les messages d'erreurs et bien sur demander à l'utilisateur ce qu'il veut faire dès l'execution.
 
-```fCreerStock``` La fonction qui va permettre à l'utilisateur de créer son stock, cette fonction va créer 3 fichier .txt:
+```fCreerStock```: La fonction qui va permettre à l'utilisateur de créer son stock, cette fonction va créer 3 fichier .txt:
 - Le premier __Nombre.txt__  va enregistrer la taille n de nos 4 tableaux (*référence, quantité, prix,seuil de securité*) entrer par l'utilisateur pour but de rendre le programme plus autonome et éviter de demander a l'utilisateur de rappeler la taille du stock a chaque fois et aussi pour eviter des tableaux vides.
 - Le deuxieme __nom.txt__ va enregistrer cette fois ci le contenu de nos 4 tableaux de taille n.
 - Le troisieme __x__ va enregistrer un code secret entrer par l'utilisateur dès la création de son stock, il lui sera demander plus tard s'il veut supprimer tout les fichiers du stock de l'entreprise et recommencer à 0.
