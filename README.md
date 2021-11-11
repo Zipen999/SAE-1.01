@@ -3,7 +3,7 @@ Eleve: HASSANI Mohamed
 Groupe: 2
 
 ## Contexte de l'entreprise :
-Programme de gestion de stock pour l'entreprise XtraChaus
+Programme de gestion de stock pour l'entreprise XtraChaus qui est mise en place pour le gérant de stock.
 
 L'entreprise XtraChaus est une entreprise qui produit des chaussures.
 Chaque type de chaussure possède:
