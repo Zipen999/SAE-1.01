@@ -26,3 +26,6 @@ void fEnregRecap (int ref[],int n,int qtvendu[]);
 void fGererRecap (int ref[],int n,int qtvendu[],int qtav,int pos);
 int fConsulterRecap (int ref[],int qtvendu[],int n);
 void fAffichageRecap (int ref[],int qtvendu[],int n);
+
+void CodeSuppression(void);
+void Clean(void);
