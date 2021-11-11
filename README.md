@@ -1,6 +1,9 @@
 # Cahier de charge SAE-1.01
 Eleve: HASSANI Mohamed  
-Groupe: 2
+Groupe: 2  
+
+Pour lancer le programme veuillez télécharger le zip, l'éxtraire, ouvrir un terminal aller au fichier et lancer ```make``` et ```./exe```. Vous devez relancer un ```./exe``` à chaque fois que vous faite une manipulation.
+
 
 ## Contexte de l'entreprise :
 Programme de gestion de stock pour l'entreprise XtraChaus qui est mise en place pour le gérant de stock.
