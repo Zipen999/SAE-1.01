@@ -6,7 +6,7 @@ Pour lancer le programme veuillez télécharger le zip, l'éxtraire, ouvrir un t
 
 
 ## Contexte de l'entreprise :
-Programme de gestion de stock pour l'entreprise XtraChaus qui est mise en place pour le gérant de stock.
+Programme de gestion de stock pour l'entreprise XtraChaus qui est mis en place pour le gérant de stock.
 
 L'entreprise XtraChaus est une entreprise qui produit des chaussures.
 Chaque type de chaussure possède:
