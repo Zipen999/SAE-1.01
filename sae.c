@@ -368,7 +368,7 @@ int fDevis (int ref[],int qt[],float prix[],int sds[],int n,int qtvendu[])
 				fGererRecap(ref,n,qtvendu,qtav,pos);
 			}
 		}
-		if(qt[pos]<=sds[pos])
+		else
 		{
 			printf("Rupture de stock sur le produit choisi.\n");
 			exit(1);
