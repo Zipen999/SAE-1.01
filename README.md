@@ -57,9 +57,3 @@ Si toutes ces conditions sont validées on va multiplier le prix a l'unité de n
 
 ```Clean```: Est la fonction qui va permettre à l'utilisateur qui gère le stock de supprimer toutes les données concernant son stock(les devis créés, le fichier contenant le stock de l'entreprise, le fichier récapitulatif de ventes et le fichier contenant le code). La fonction regarde si le code entrer est le même que celui présent dans le fichier __x__ et demande a l'utilisateur s'il veut vraiment tout supprimer.
 
-#### Remarque:
-- La fonction fDevis ne fonctionne pas correctement sur les pc de l'iut il se peut que ce soit un problème de droits (*Lors de la saisie de la référence d'article à vendre, le programme ne donne pas la main à l'utilisateur pour saisir la quantité à vendre et met 0*).
-
-voici le résultat sur ma machine:
-![image](https://user-images.githubusercontent.com/78689752/141314943-34cc789e-d94c-4bee-a58e-e58a87772794.png)
-
